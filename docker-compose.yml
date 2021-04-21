@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  nginx:
+    build:
+      context: ./docker/development/nginx
+      dockerfile: nginx.Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - "80:80"
+  php-fpm:
+    build:
+      context: ./docker/development/php-fpm
+      dockerfile: php-fpm.Dockerfile
+    volumes:
+      - ./:/app
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password --sql_mode=''
+    restart: always
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: commentwall
+      MYSQL_USER: commentwall
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
