@@ -1,6 +1,7 @@
 import Index from "../components/pages/Index"
 import About from "../components/pages/About"
 import Login from "../components/pages/Login"
+import Comments from "../components/pages/Comments"
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/login',
     name: 'pages.login',
     component: Login
+  },
+  {
+    path: '/comments',
+    name: 'pages.comments',
+    component: Comments
   }
 ]
 

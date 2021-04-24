@@ -1,6 +1,8 @@
 import routes from "./routes"
 import Router from 'vue-router'
 import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
+import store from '../store'
 
 import {
   resolveMiddleware,
@@ -74,5 +76,7 @@ async function afterEach (to, from, next) {
 
 router.beforeEach(beforeEach)
 router.afterEach(afterEach)
+
+sync(store, router)
 
 export default router

@@ -11,15 +11,23 @@
 
             <Link
               :to="'/'"
-              :current="true"
+              :current="$route.name === 'pages.index'"
             >
               Dashboard
             </Link>
 
             <Link
               :to="'/about'"
+              :current="$route.name === 'pages.about'"
             >
               About
+            </Link>
+
+            <Link
+              :to="'/comments'"
+              :current="$route.name === 'pages.comments'"
+            >
+              Comments
             </Link>
 
           </div>
@@ -81,7 +89,7 @@
 
         <Link
           :to="'/'"
-          :current="true"
+          :current="$route.name === 'pages.index'"
           :mobile="true"
         >
           Dashboard
@@ -89,9 +97,18 @@
 
         <Link
           :to="'/about'"
+          :current="$route.name === 'pages.about'"
           :mobile="true"
         >
           About
+        </Link>
+
+        <Link
+          :to="'/comments'"
+          :current="$route.name === 'pages.comments'"
+          :mobile="true"
+        >
+          Comments
         </Link>
 
       </div>
@@ -153,6 +170,8 @@ export default {
           this.$router.push('/login')
         })
     }
+  },
+  mounted() {
   }
 }
 </script>
