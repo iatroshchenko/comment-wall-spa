@@ -11,187 +11,39 @@
 
       <div class="bg-white py-8 px-2">
 
-        <div class="relative pb-8 max-w-lg">
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
+        <div id="comment-field" class="relative p-8">
+          <div class="px-4 bg-white">
+            <div>
+              <label for="reply" class="block text-sm font-medium text-gray-700">
+                Comment
+              </label>
+              <div class="mt-1">
+              <textarea
+                id="reply" name="about" rows="3"
+                class="p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                placeholder="Type something ..."
+              />
               </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
+              <p class="mt-2 text-sm text-gray-500">
+                Write your comment or reply
+              </p>
             </div>
           </div>
-
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
-              </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
-            </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <a class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Comment
+            </a>
           </div>
+        </div>
 
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
-              </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="relative p-8 max-w-lg">
 
+          <Comment
+            :key="key"
+            v-for="(comment, key) in comments"
+            :comment="comment"
+          ></Comment>
 
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
-              </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
-              </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="relative flex items-start space-x-3">
-            <div class="relative">
-              <img
-                src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-                alt=""
-                class="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
-              >
-              <span class="absolute -bottom-0.5 -right-1 bg-white rounded-tl px-0.5 py-px">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-400">
-                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-            <div class="min-w-0 flex-1">
-              <div>
-                <div class="text-sm">
-                  <a href="#" class="font-medium text-gray-900">Eduardo Benz</a>
-                </div>
-                <p class="mt-0.5 text-sm text-gray-500">
-                  Commented 6d ago
-                </p>
-              </div>
-              <div class="mt-2 text-sm text-gray-700">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -201,20 +53,46 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import {AUTH_GET_USER} from "../../store/modules/auth/getters";
+import {COMMENTS_ACTION_FETCH_COMMENTS} from "../../store/modules/comments/actions";
+import Comment from "../comments/Comment";
 
 export default {
   name: "Index",
   middleware: ['auth'],
+  components: {
+    Comment
+  },
   computed: {
     ...mapGetters({
       user: 'auth/' + AUTH_GET_USER
     })
+  },
+  data () {
+    return {
+      comments: []
+    }
+  },
+  methods: {
+    ...mapActions({
+      fetchComments: 'comments/' + COMMENTS_ACTION_FETCH_COMMENTS
+    }),
+    loadComments() {
+      this.fetchComments()
+        .then(res => {
+          this.comments = [...res.data.data]
+        })
+    }
+  },
+  mounted() {
+    this.loadComments()
   }
 }
 </script>
 
 <style scoped>
-
+  .replies {
+    padding-left: 50px;
+  }
 </style>

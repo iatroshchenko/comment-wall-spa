@@ -12,3 +12,5 @@
 * BLANK_MUTATION_SET_SOMETHING
 *
 * */
+
+export const COMMENTS_ACTION_FETCH_COMMENTS = 'fetchComments'

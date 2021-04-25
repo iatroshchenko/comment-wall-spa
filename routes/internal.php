@@ -3,10 +3,16 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Internal\UserController;
+use App\Http\Controllers\Internal\CommentController;
 
-Route::name('internal.')->group(function () {
-    Route::get('userinfo', [
-        UserController::class,
-        'userinfo'
-    ])->name('userinfo');
-});
+Route::get('userinfo', [
+    UserController::class,
+    'userinfo'
+])->name('userinfo');
+
+Route::get('comments', [
+    CommentController::class,
+    'all'
+])
+    ->name('comments.all')
+    ->middleware('auth');
