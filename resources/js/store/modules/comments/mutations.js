@@ -12,3 +12,6 @@
 * BLANK_MUTATION_SET_SOMETHING
 *
 * */
+
+export const COMMENTS_MUTATION_SET_SELECTED = 'setSelectedComment'
+export const COMMENTS_MUTATION_SET_COMMENTS = 'setComments'

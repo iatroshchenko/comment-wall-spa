@@ -16,3 +16,10 @@ Route::get('comments', [
 ])
     ->name('comments.all')
     ->middleware('auth');
+
+Route::post('comments', [
+    CommentController::class,
+    'submit'
+])
+    ->name('comments.submit')
+    ->middleware('auth');

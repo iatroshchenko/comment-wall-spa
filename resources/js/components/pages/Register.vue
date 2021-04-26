@@ -5,13 +5,13 @@
       <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
+          Register new Account
         </h2>
         <p class="mt-2 text-center text-sm text-gray-600 max-w">
           Or
           <!-- space -->
-          <router-link to="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-            Register
+          <router-link to='/login' class="font-medium text-indigo-600 hover:text-indigo-500">
+            Sign in
           </router-link>
           Instead
         </p>
@@ -21,11 +21,33 @@
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form class="space-y-6" action="#" method="POST">
             <div>
+              <label for="name" class="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <div class="mt-1">
+                <input
+                  v-model="registerForm.name"
+                  id="name"
+                  name="name"
+                  type="text"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+              </div>
+            </div>
+
+            <div>
               <label for="email" class="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <div class="mt-1">
-                <input v-model="loginForm.email" id="email" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <input
+                  v-model="registerForm.email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
               </div>
             </div>
 
@@ -34,31 +56,37 @@
                 Password
               </label>
               <div class="mt-1">
-                <input v-model="loginForm.password" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <input
+                  v-model="registerForm.password"
+                  id="password"
+                  name="password"
+                  type="password"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
               </div>
             </div>
 
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div class="text-sm">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a>
+            <div>
+              <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
+                Confirm Your password
+              </label>
+              <div class="mt-1">
+                <input
+                  v-model="registerForm.password_confirmation"
+                  id="password_confirmation"
+                  name="password_confirmation"
+                  type="password"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
               </div>
             </div>
 
             <div>
               <a
                 class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                @click="login"
+                @click="onRegisterClick"
               >
-                Sign in
+                Register
               </a>
             </div>
           </form>
@@ -112,10 +140,9 @@
 </template>
 
 <script>
-import { client } from '../../axios'
 import GuestLayout from "../../layouts/GuestLayout"
-import { mapActions } from 'vuex'
-import {AUTH_ACTION_ATTEMPT_LOGIN, AUTH_ACTION_UPDATE_USER} from "../../store/modules/auth/actions"
+import {mapActions} from "vuex";
+import {AUTH_ACTION_REGISTER} from "../../store/modules/auth/actions";
 
 export default {
   layout: GuestLayout.name,
@@ -123,29 +150,24 @@ export default {
   middleware: ['redirectIfAuthenticated'],
   data() {
     return {
-      loginForm: {
+      registerForm: {
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
       }
     }
   },
   methods: {
     ...mapActions({
-      attemptLogin: 'auth/' + AUTH_ACTION_ATTEMPT_LOGIN,
-      updateUser: 'auth/' + AUTH_ACTION_UPDATE_USER
+      register: 'auth/' + AUTH_ACTION_REGISTER
     }),
-    login() {
-      this.attemptLogin({
-        ...this.loginForm
+    onRegisterClick() {
+      this.register({
+        ...this.registerForm
       })
         .then(res => {
-          this.updateUser()
-            .then(res => {
-              this.$router.push('/')
-            })
-        })
-        .catch(err => {
-          console.log(err);
+          this.$router.push('/login')
         })
     }
   }

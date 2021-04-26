@@ -14,3 +14,6 @@
 * */
 
 export const COMMENTS_ACTION_FETCH_COMMENTS = 'fetchComments'
+export const COMMENTS_ACTION_LOAD_COMMENTS = 'loadComments'
+export const COMMENTS_ACTION_SELECT_COMMENT = 'selectComment'
+export const COMMENTS_ACTION_SUBMIT_COMMENT = 'submitComment'

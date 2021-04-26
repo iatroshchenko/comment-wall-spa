@@ -20,7 +20,8 @@ import {
 import {
   AUTH_ACTION_UPDATE_USER,
   AUTH_ACTION_ATTEMPT_LOGIN,
-  AUTH_ACTION_LOGOUT
+  AUTH_ACTION_LOGOUT,
+  AUTH_ACTION_REGISTER
 } from "./actions"
 
 /* Mutations */
@@ -57,6 +58,12 @@ const actions = {
   [AUTH_ACTION_ATTEMPT_LOGIN] (context, payload) {
     const loginRoute = route('login')
     return client.post(loginRoute, {
+      ...payload
+    })
+  },
+  [AUTH_ACTION_REGISTER] (context, payload) {
+    const registerRoute = route('register')
+    return client.post(registerRoute, {
       ...payload
     })
   },

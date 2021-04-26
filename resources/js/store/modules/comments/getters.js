@@ -12,3 +12,6 @@
 * BLANK_MUTATION_SET_SOMETHING
 *
 * */
+
+export const COMMENTS_GET_SELECTED = 'selectedComment'
+export const COMMENTS_GET_COMMENTS = 'getComments'

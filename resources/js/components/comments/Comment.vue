@@ -43,6 +43,9 @@
 
 <script>
 
+import {mapActions} from "vuex";
+import {COMMENTS_ACTION_SELECT_COMMENT} from "../../store/modules/comments/actions";
+
 export default {
   name: "Comment",
   components: {
@@ -55,8 +58,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      selectComment: 'comments/' + COMMENTS_ACTION_SELECT_COMMENT
+    }),
     onReplyClick() {
-      console.log(this.comment.id)
+      this.selectComment(this.comment)
     }
   }
 }
