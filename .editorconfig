@@ -13,3 +13,7 @@ trim_trailing_whitespace = false
 
 [*.{vue,js,json,html,scss,blade.php,yml}]
 indent_size = 2
+
+[Makefile]
+indent_style = tab
+indent_size = 4

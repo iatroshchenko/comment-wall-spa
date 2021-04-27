@@ -15,6 +15,9 @@
 
 @routes
 
+<script>
+  Ziggy.url = '{{ env('APP_URL') }}'
+</script>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

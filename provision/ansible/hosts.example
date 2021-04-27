@@ -1,0 +1,2 @@
+[prod]
+myhost.dev ansible_user=root

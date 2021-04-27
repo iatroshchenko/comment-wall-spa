@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  gateway:
+    image: iatroshchenko/cw-gateway:1.0
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app-nginx
+      - app-php-fpm
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/html:/var/www/html:ro
+  app-nginx:
+    image: iatroshchenko/cw-app-nginx:1.0
+  app-php-fpm:
+    image: iatroshchenko/cw-app-php-fpm:1.0
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password --sql_mode=''
+    restart: always
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: commentwall
+      MYSQL_USER: commentwall
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
