@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Comments\SubmitCommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Services\CommentService;
 use App\Traits\Controllers\SendsEmptyResponse;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
     use SendsEmptyResponse;
+
+    private CommentService $commentService;
+
+    public function __construct(CommentService $commentService)
+    {
+        $this->commentService = $commentService;
+    }
 
     public function all()
     {
@@ -36,12 +44,9 @@ class CommentController extends Controller
 
     public function submit(SubmitCommentRequest $request)
     {
-        $comment = Comment::create([
-            'body' => $request->input('body'),
-            'name' => $request->input('name'),
-            'user_id' => auth()->user()->id,
-            'reply_to' => $request->input('reply_to')
-        ]);
+        $this
+            ->commentService
+            ->createCommentFromRequest($request);
 
         return $this->sendEmptyTrueResponse('created');
     }

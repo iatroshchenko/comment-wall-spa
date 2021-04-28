@@ -8,5 +8,5 @@ export default async (to, from, next) => {
     await store.dispatch('auth/' + AUTH_ACTION_UPDATE_USER)
   }
 
-  next()
+  return next()
 }

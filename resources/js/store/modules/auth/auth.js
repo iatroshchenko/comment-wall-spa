@@ -13,6 +13,7 @@ import { client } from '../../../axios'
 
 /* Getters */
 import {
+  AUTH_GET_AUTHENTICATED,
   AUTH_GET_USER
 } from "./getters"
 
@@ -36,7 +37,8 @@ const state = {
 }
 
 const getters = {
-  [AUTH_GET_USER]: state => state.user
+  [AUTH_GET_USER]: state => state.user,
+  [AUTH_GET_AUTHENTICATED]: state => state.authenticated
 }
 
 const actions = {

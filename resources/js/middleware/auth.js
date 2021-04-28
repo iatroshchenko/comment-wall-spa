@@ -5,8 +5,8 @@ export default async (to, from, next) => {
   const user = store.getters['auth/' + AUTH_GET_USER]
 
   if (!user) {
-    next('/login')
+    return next('/login')
   }
 
-  next()
+  return next()
 }
