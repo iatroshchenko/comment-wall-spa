@@ -3,6 +3,8 @@ version: "3.7"
 services:
   gateway:
     image: ${REGISTRY}/cw-gateway:${IMAGE_TAG}
+    env_file:
+      - ./env/.env.production
     ports:
       - "80:80"
       - "443:443"
@@ -14,6 +16,8 @@ services:
       - /var/www/html:/var/www/html:ro
   app-nginx:
     image: ${REGISTRY}/cw-app-nginx:${IMAGE_TAG}
+    env_file:
+      - ./env/.env.production
   app-php-fpm:
     env_file:
       - ./env/.env.production

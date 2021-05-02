@@ -52,18 +52,15 @@ deploy:
 	scp -P ${PORT} .env ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env
 	scp -P ${PORT} .env.production ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.production
 	scp -P ${PORT} .env.database ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.database
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}" >> .env'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose -f docker-compose.prod.yml pull'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose -f docker-compose.prod.yml up -d --build --remove-orphans'
+	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
+	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up -d --build --remove-orphans'
 	sleep 10
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo "php artisan migrate --force" | docker-compose -f docker-compose.prod.yml exec -T app-php-fpm bash'
+	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo "php artisan migrate --force" | docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml exec -T app-php-fpm bash'
 	ssh ${USER}@${HOST} -p ${PORT} 'rm -f ${COMPOSE_PROJECT_NAME}'
 	ssh ${USER}@${HOST} -p ${PORT} 'ln -sr ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} ${COMPOSE_PROJECT_NAME}'
 
 shutdown:
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose -f docker-compose.prod.yml down --remove-orphans'
+	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml down --remove-orphans'
 	ssh ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
 	ssh ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}'
 
