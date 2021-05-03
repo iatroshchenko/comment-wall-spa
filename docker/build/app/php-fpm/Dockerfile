@@ -56,6 +56,9 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY ./docker/common/wait-for-it.sh /usr/local/bin/wait-for-it
+RUN chmod 555 /usr/local/bin/wait-for-it
+
 COPY --chown=www-data:www-data . /app
 
 WORKDIR /app

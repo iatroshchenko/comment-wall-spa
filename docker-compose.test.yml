@@ -2,34 +2,29 @@ version: "3.7"
 
 services:
   gateway:
-    image: ${REGISTRY}/cw-gateway:${IMAGE_TAG}
-    env_file:
-      - ./env/.env.production
-    ports:
-      - "80:80"
-      - "443:443"
+    image: ${REGISTRY}/cw-gateway-testing:${IMAGE_TAG}
     depends_on:
       - app-nginx
       - app-php-fpm
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /var/www/html:/var/www/html:ro
+    ports:
+    - "80:80"
   app-nginx:
     image: ${REGISTRY}/cw-app-nginx:${IMAGE_TAG}
     env_file:
-      - ./env/.env.production
+      - .env.test
   app-php-fpm:
     env_file:
-      - ./env/.env.production
+      - .env.test
     image: ${REGISTRY}/cw-app-php-fpm:${IMAGE_TAG}
     depends_on:
       - mysql
   mysql:
     image: mysql
-    env_file:
-      - ./env/.env.database
-    ports:
-      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: commentwall
+      MYSQL_USER: commentwall
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
     command: --default-authentication-plugin=mysql_native_password --sql_mode=''
     restart: always
     volumes:
