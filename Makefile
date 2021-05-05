@@ -15,10 +15,18 @@ ssh:
 
 
 ## Build Section
-build: build-gateway build-app build-testing
+build: libraries compile-assets build-gateway build-app build-testing
 build-testing: build-testing-gateway
 
 build-app: build-app-nginx build-app-php-fpm
+
+libraries:
+	docker-compose -f docker-compose.libs.yml up -d --build --remove-orphans
+	docker-compose run --rm php-fpm composer install
+	docker-compose -f docker-compose.libs.yml down --remove-orphans
+
+compile-assets:
+	docker run -v $(PWD):/app node:16-alpine3.11 /bin/sh -c "cd /app && npm run production"
 
 build-gateway:
 	docker --log-level=debug build --pull --file=./docker/build/gateway/nginx/Dockerfile --tag=${REGISTRY}/cw-gateway:${IMAGE_TAG} ./
@@ -90,3 +98,21 @@ testing-init:
 
 testing-down:
 	COMPOSE_PROJECT_NAME=testing docker-compose -f docker-compose.test.yml down -v --remove-orphans
+
+
+## Pipeline
+## This can be extended - for now just basic things like unit/feature tests and browser tests
+pipeline: pipeline__tests-on-dev build pipeline__tests-on-test
+
+pipeline__tests-on-dev:
+	docker-compose up -d
+	docker-compose run --rm php-fpm composer test
+	docker-compose down --remove-orphans
+
+pipeline__tests-on-test:
+	docker-compose --env-file .env.test -f docker-compose.test.yml pull
+	docker-compose --env-file .env.test -f docker-compose.test.yml up -d
+	docker-compose --env-file .env.test -f docker-compose.test.yml run --rm app-php-fpm wait-for-it mysql:3306 -t 30
+	docker-compose --env-file .env.test -f docker-compose.test.yml run --rm app-php-fpm php artisan migrate --force
+	docker-compose --env-file .env.test -f docker-compose.test.yml run --rm app-php-fpm php artisan dusk
+	docker-compose --env-file .env.test -f docker-compose.test.yml down -v --remove-orphans

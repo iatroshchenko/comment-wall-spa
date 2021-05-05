@@ -54,7 +54,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-enable redis.so \
   && docker-php-source delete
 
-COPY ./common/wait-for-it.sh /usr/local/bin/wait-for-it
+COPY ./docker/common/wait-for-it.sh /usr/local/bin/wait-for-it
 RUN chmod 555 /usr/local/bin/wait-for-it
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
