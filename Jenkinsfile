@@ -3,9 +3,6 @@ pipeline {
     options {
         timestamps()
     }
-    environment {
-
-    }
     stages {
         stage("Dev environment -- Prepare") {
             steps {
