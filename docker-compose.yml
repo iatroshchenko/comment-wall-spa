@@ -11,8 +11,8 @@ services:
       - "80:80"
   php-fpm:
     build:
-      context: ./docker/development/php-fpm
-      dockerfile: php-fpm.Dockerfile
+      context: .
+      dockerfile: ./docker/development/php-fpm/php-fpm.Dockerfile
     volumes:
       - ./:/app
   mysql:
