@@ -35,6 +35,11 @@ pipeline {
                 sh 'make dev-build'
             }
         }
+        stage("Composer - install libs") {
+            steps {
+                sh 'make libraries'
+            }
+        }
         stage("Dev environment up") {
             steps {
                 sh 'make dev-up'
