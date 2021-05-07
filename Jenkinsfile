@@ -63,5 +63,6 @@ pipeline {
                 sh "rm .env.database"
             }
         }
+        
     }
 }
