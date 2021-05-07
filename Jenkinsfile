@@ -13,11 +13,11 @@ pipeline {
     stages {
         stage("create .env files") {
             steps {
-                sh "echo $ENV_FILE__DEV >> .env"
-                sh "echo $ENV_FILE__TEST >> .env.test"
-                sh "echo $ENV_FILE__PROD >> .env.production"
-                sh "echo $ENV_FILE__DB >> .env.database"
-                sh "echo $ENV_FILE__DEV"
+                sh "cp $ENV_FILE__DEV .env"
+                sh "cp $ENV_FILE__TEST .env.test"
+                sh "cp $ENV_FILE__PROD .env.production"
+                sh "cp $ENV_FILE__DB .env.database"
+                sh "cat .env"
             }
         }
         stage("npm install and compile assets") {
