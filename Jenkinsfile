@@ -17,6 +17,7 @@ pipeline {
                 sh "echo $ENV_FILE__TEST >> .env.test"
                 sh "echo $ENV_FILE__PROD >> .env.production"
                 sh "echo $ENV_FILE__DB >> .env.database"
+                sh "cat .env"
             }
         }
         stage("npm install and compile assets") {
