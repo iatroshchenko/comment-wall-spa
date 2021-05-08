@@ -69,4 +69,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            sh "make dev-destroy || true"
+        }
+    }
 }
