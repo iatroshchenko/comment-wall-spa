@@ -88,26 +88,15 @@ pipeline {
         }
         stage("Destroy test environment") {
             steps {
-                sh 'test-destroy'
-            }
-        }
-        stage("Remove .env files") {
-            steps {
-                sh "rm .env"
-                sh "rm .env.test"
-                sh "rm .env.production"
-                sh "rm .env.database"
+                sh 'make test-destroy'
             }
         }
     }
     post {
         always {
             sh "make dev-destroy || true"
-            sh "rm .env"
-            sh "rm .env.test"
-            sh "rm .env.production"
-            sh "rm .env.database"
             sh "make test-destroy || true"
+            sh "make remove-env-files"
         }
     }
 }

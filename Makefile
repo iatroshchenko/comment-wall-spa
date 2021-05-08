@@ -141,3 +141,10 @@ test-destroy:
 ## validate Jenkinsfile
 jenkins-validate:
 	curl --user ${JENKINS_VALIDATE_USER} -X POST -F "jenkinsfile=<Jenkinsfile" ${JENKINS_VALIDATE_HOST}/pipeline-model-converter/validate
+
+## Remove .env
+remove-env-files:
+	rm .env
+	rm .env.test
+	rm .env.production
+	rm .env.database
