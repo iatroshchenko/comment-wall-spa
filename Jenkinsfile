@@ -9,6 +9,8 @@ pipeline {
         ENV_FILE__TEST = credentials('commentwall__env-file__test')
         ENV_FILE__PROD = credentials('commentwall__env-file__prod')
         ENV_FILE__DB = credentials('commentwall__env-file__db')
+        DOCKER_LOGIN__USERNAME = credentials('docker-login__username')
+        DOCKER_LOGIN__PASSWORD = credentials('docker-login__password')
     }
     stages {
         stage("create .env files") {
@@ -89,6 +91,11 @@ pipeline {
         stage("Destroy test environment") {
             steps {
                 sh 'make test-destroy'
+            }
+        }
+        stage("Docker login") {
+            steps {
+                sh 'echo ${DOCKER_LOGIN__PASSWORD} | docker login --username ${DOCKER_LOGIN__USERNAME} --password-stdin'
             }
         }
         stage("Push production images") {
