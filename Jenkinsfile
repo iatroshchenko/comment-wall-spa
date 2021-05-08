@@ -68,7 +68,7 @@ pipeline {
         }
         stage("Build production images") {
             steps {
-                sh 'make build'
+                sh 'IMAGE_TAG=${BUILD_NUMBER} make build'
             }
         }
         stage("Start test environment") {
@@ -89,6 +89,16 @@ pipeline {
         stage("Destroy test environment") {
             steps {
                 sh 'make test-destroy'
+            }
+        }
+        stage("Push production images") {
+            steps {
+                sh 'IMAGE_TAG=${BUILD_NUMBER} make push'
+            }
+        }
+        stage("Deploy") {
+            steps {
+                sh 'BUILD_NUMBER=${BUILD_NUMBER} make deploy'
             }
         }
     }
