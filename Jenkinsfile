@@ -60,6 +60,37 @@ pipeline {
                 sh 'make dev-destroy'
             }
         }
+
+        stage("Test environment - Pull images") {
+            steps {
+                sh 'make test-pull'
+            }
+        }
+        stage("Build production images") {
+            steps {
+                sh 'make build'
+            }
+        }
+        stage("Start test environment") {
+            steps {
+                sh 'make test-start'
+            }
+        }
+        stage("Test environment - run migrations") {
+            steps {
+                sh 'make test-migrations'
+            }
+        }
+        stage("Test environment - run Laravel Dusk") {
+            steps {
+                sh 'make ci__laravel-dusk'
+            }
+        }
+        stage("Destroy test environment") {
+            steps {
+                sh 'test-destroy'
+            }
+        }
         stage("Remove .env files") {
             steps {
                 sh "rm .env"
@@ -72,6 +103,11 @@ pipeline {
     post {
         always {
             sh "make dev-destroy || true"
+            sh "rm .env"
+            sh "rm .env.test"
+            sh "rm .env.production"
+            sh "rm .env.database"
+            sh "make test-destroy || true"
         }
     }
 }

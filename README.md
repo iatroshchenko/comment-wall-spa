@@ -14,8 +14,8 @@
 6. dev run migrations 
 7. CI -- unit tests
 8. destroy dev environment
-9. Build production images (to run them on test environment)
-10. Test environment - pull images
+9. Test environment - pull images
+10. Build production images (to run them on test environment)
 11. Start test environment
 12. test environment - run migrations
 13. Run Laravel Dusk
