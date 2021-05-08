@@ -105,7 +105,9 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                sh 'BUILD_NUMBER=${BUILD_NUMBER} make deploy'
+                sshagent (credentials: ['production-ssh']) {
+                    sh 'BUILD_NUMBER=${BUILD_NUMBER} make deploy'
+                }
             }
         }
     }

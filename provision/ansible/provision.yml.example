@@ -12,6 +12,7 @@
   roles:
     - docker
     - certbot
+    - swarm_manager
     - role: general
       vars:
         certbot_email: mymail.com
