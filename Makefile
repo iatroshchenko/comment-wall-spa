@@ -66,33 +66,30 @@ redeploy-full: shutdown build push deploy
 redeploy-current: shutdown deploy
 
 deploy:
-	ssh ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
-	ssh ${USER}@${HOST} -p ${PORT} 'mkdir ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && mkdir env'
-	scp -P ${PORT} docker-compose.prod.yml ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/docker-compose.prod.yml
-	scp -P ${PORT} .env ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env
-	scp -P ${PORT} .env.production ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.production
-	scp -P ${PORT} .env.test ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.test
-	scp -P ${PORT} .env.database ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.database
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up -d --build --remove-orphans'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml run --rm app-php-fpm wait-for-it mysql:3306 -t 30'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml run --rm app-php-fpm php artisan migrate --force'
-	ssh ${USER}@${HOST} -p ${PORT} 'rm -f ${COMPOSE_PROJECT_NAME}'
-	ssh ${USER}@${HOST} -p ${PORT} 'ln -sr ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} ${COMPOSE_PROJECT_NAME}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'mkdir ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && mkdir env'
+	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose.prod.yml ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/docker-compose.prod.yml
+	scp -o StrictHostKeyChecking=no -P ${PORT} .env ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env
+	scp -o StrictHostKeyChecking=no -P ${PORT} .env.production ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.production
+	scp -o StrictHostKeyChecking=no -P ${PORT} .env.test ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.test
+	scp -o StrictHostKeyChecking=no -P ${PORT} .env.database ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.database
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up -d --build --remove-orphans'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml run --rm app-php-fpm wait-for-it mysql:3306 -t 30'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml run --rm app-php-fpm php artisan migrate --force'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'rm -f ${COMPOSE_PROJECT_NAME}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'ln -sr ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} ${COMPOSE_PROJECT_NAME}'
 
 shutdown:
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml down --remove-orphans'
-	ssh ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
-	ssh ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml down --remove-orphans'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'rm -rf ${COMPOSE_PROJECT_NAME}'
 
 rollback:
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} &&  docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
-	ssh ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} &&  docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up --build --remove-orphans -d'
-	ssh ${USER}@${HOST} -p ${PORT} 'rm -f ${COMPOSE_PROJECT_NAME}'
-
-ssh:
-	ssh root@${HOST}
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} &&  docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} &&  docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up --build --remove-orphans -d'
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'rm -f ${COMPOSE_PROJECT_NAME}'
 
 ## CI/CD
 ci__unit-tests:

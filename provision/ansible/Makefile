@@ -3,3 +3,6 @@ provision:
 
 certificates-renew:
 	ansible-playbook -i hosts tasks/renew_certificates.yml
+
+authorize:
+	ansible-playbook -i hosts authorize.yml
