@@ -20,6 +20,8 @@ class IpRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $environment = config('app.env')
+
         $requestHost = parse_url($request->headers->get('origin'),  PHP_URL_HOST);
 
         $requestInfo = [
@@ -30,7 +32,9 @@ class IpRestrictionMiddleware
             'forwarded-for' => $request->header('X-Forwarded-For')
         ];
 
-        dd($requestInfo);
+        dump($requestInfo);
+
+        dd($_SERVER);
 
         if (!in_array($request->ip(), $this->allowedIps)) {
             return response()->json(['you don\'t have permission to access this application.']);
