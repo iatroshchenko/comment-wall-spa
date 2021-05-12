@@ -15,7 +15,10 @@ Route::get('comments', [
     'all'
 ])
     ->name('comments.all')
-    ->middleware('auth');
+    ->middleware([
+        'auth',
+        'ip'
+    ]);
 
 Route::post('comments', [
     CommentController::class,
