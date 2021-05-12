@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class RefererRestrictionMiddleware
 {
-    public array $allowedReferers = [
-        'comment-wall.iatroshchenko.dev'
-    ];
-
     /**
      * Handle an incoming request.
      *
@@ -20,16 +16,9 @@ class RefererRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        dd($_SERVER["HTTP_SEC_FETCH_SITE"]);
-
         if (config('app.env') === 'production') {
-            $referer = $request->headers->get('referer') ?: '';
-
-            $filtered = array_filter($this->allowedReferers, function ($item) use ($referer) {
-                return str_contains($referer, $item);
-            });
-
-            if (count($filtered) === 0) {
+            $sameOrigin = $_SERVER["HTTP_SEC_FETCH_SITE"] ?? null;
+            if (!$sameOrigin || $sameOrigin !== 'same-origin') {
                 return response()->json(['you don\'t have permission to access this application.']);
             }
         }
