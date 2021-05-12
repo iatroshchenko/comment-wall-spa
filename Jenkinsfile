@@ -64,6 +64,8 @@ pipeline {
         }
         stage("Test environment - Prepare env") {
             steps {
+                sh 'lst -la'
+                sh "cp $ENV_FILE__TEST .env.test"
                 sh 'make test-prepare-env'
             }
         }
