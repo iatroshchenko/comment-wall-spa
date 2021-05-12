@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class IpRestrictionMiddleware
 {
     public array $allowedReferers = [
-        'https://comment-wall.iatroshchenko.dev'
+        'comment-wall.iatroshchenko.dev'
     ];
 
     /**
@@ -22,7 +22,12 @@ class IpRestrictionMiddleware
     {
         if (config('app.env') === 'production') {
             $referer = $request->headers->get('referer');
-            if (!in_array($referer, $this->allowedReferers)) {
+
+            $filtered = array_filter($this->allowedReferers, function ($item) use ($referer) {
+                return str_contains($referer, $item);
+            });
+
+            if (count($filtered) === 0) {
                 return response()->json(['you don\'t have permission to access this application.']);
             }
         }
