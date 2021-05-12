@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class IpRestrictionMiddleware
 {
-    public array $restrictIps = [
+    public array $allowedIps = [
         '161.35.213.148'
     ];
 
@@ -20,8 +20,19 @@ class IpRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (in_array($request->ip(), $this->restrictIps)) {
+        $requestHost = parse_url($request->headers->get('origin'),  PHP_URL_HOST);
 
+        $requestInfo = [
+            'host' => $requestHost,
+            'ip' => $request->getClientIp(),
+            'url' => $request->getRequestUri(),
+            'agent' => $request->header('User-Agent'),
+            'forwarded-for' => $request->header('X-Forwarded-For')
+        ];
+
+        dd($requestInfo);
+
+        if (!in_array($request->ip(), $this->allowedIps)) {
             return response()->json(['you don\'t have permission to access this application.']);
         }
 
