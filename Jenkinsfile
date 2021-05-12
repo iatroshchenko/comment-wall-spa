@@ -19,7 +19,6 @@ pipeline {
                 sh "cp $ENV_FILE__TEST .env.test"
                 sh "cp $ENV_FILE__PROD .env.production"
                 sh "cp $ENV_FILE__DB .env.database"
-                sh "cat .env"
             }
         }
         stage("npm install and compile assets") {
@@ -65,6 +64,8 @@ pipeline {
         stage("Test environment - Prepare env") {
             steps {
                 sh 'cat .env.test'
+                sh 'pwd'
+                sh "cp $ENV_FILE__DB .env.test.1"
                 sh 'echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test'
             }
         }
