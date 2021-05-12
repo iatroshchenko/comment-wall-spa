@@ -20,8 +20,6 @@ class IpRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $environment = config('app.env')
-
         $requestHost = parse_url($request->headers->get('origin'),  PHP_URL_HOST);
 
         $requestInfo = [
