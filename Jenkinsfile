@@ -62,7 +62,11 @@ pipeline {
                 sh 'make dev-destroy'
             }
         }
-
+        stage("Test environment - Prepare env") {
+            steps {
+                sh 'make test-prepare-env'
+            }
+        }
         stage("Test environment - Pull images") {
             steps {
                 sh 'make test-pull'

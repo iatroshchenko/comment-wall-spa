@@ -121,11 +121,13 @@ dev-destroy:
 	docker-compose down -v --remove-orphans
 
 ## Environment Section -- TESTING
+test-prepare-env:
+	echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test
+
 test-pull:
 	docker-compose --env-file .env.test -f docker-compose.test.yml pull --include-deps
 
 test-start:
-	echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test
 	docker-compose --env-file .env.test -f docker-compose.test.yml up -d
 
 test-migrations:
