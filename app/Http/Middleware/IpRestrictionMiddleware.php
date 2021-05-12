@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class IpRestrictionMiddleware
 {
-    public array $allowedIps = [
-        '161.35.213.148'
+    public array $allowedReferers = [
+        'https://comment-wall.iatroshchenko.dev'
     ];
 
     /**
@@ -20,22 +20,11 @@ class IpRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $requestHost = parse_url($request->headers->get('origin'),  PHP_URL_HOST);
-
-        $requestInfo = [
-            'host' => $requestHost,
-            'ip' => $request->getClientIp(),
-            'url' => $request->getRequestUri(),
-            'agent' => $request->header('User-Agent'),
-            'forwarded-for' => $request->header('X-Forwarded-For')
-        ];
-
-        dump($requestInfo);
-
-        dd($_SERVER);
-
-        if (!in_array($request->ip(), $this->allowedIps)) {
-            return response()->json(['you don\'t have permission to access this application.']);
+        if (config('app.env') === 'production') {
+            $referer = $request->headers->get('referer');
+            if (!in_array($referer, $this->allowedReferers)) {
+                return response()->json(['you don\'t have permission to access this application.']);
+            }
         }
 
         return $next($request);
