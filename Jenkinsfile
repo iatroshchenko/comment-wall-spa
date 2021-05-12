@@ -64,9 +64,8 @@ pipeline {
         }
         stage("Test environment - Prepare env") {
             steps {
-                sh 'ls -la'
-                sh "cp $ENV_FILE__TEST .env.test"
-                sh 'make test-prepare-env'
+                sh 'cat .env.test'
+                sh 'echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test'
             }
         }
         stage("Test environment - Pull images") {
