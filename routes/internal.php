@@ -17,7 +17,7 @@ Route::get('comments', [
     ->name('comments.all')
     ->middleware([
         'auth',
-        'ip'
+        'referer'
     ]);
 
 Route::post('comments', [

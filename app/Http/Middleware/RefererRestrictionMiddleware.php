@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IpRestrictionMiddleware
+class RefererRestrictionMiddleware
 {
     public array $allowedReferers = [
         'comment-wall.iatroshchenko.dev'
@@ -21,7 +21,7 @@ class IpRestrictionMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (config('app.env') === 'production') {
-            $referer = $request->headers->get('referer');
+            $referer = $request->headers->get('referer') ?: '';
 
             $filtered = array_filter($this->allowedReferers, function ($item) use ($referer) {
                 return str_contains($referer, $item);
