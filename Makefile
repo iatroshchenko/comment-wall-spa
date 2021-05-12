@@ -125,7 +125,7 @@ test-prepare-env:
 	echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test
 
 test-pull:
-	docker-compose --env-file .env.test -f docker-compose.test.yml pull --include-deps --ignore-pull-failures
+	docker-compose --env-file .env.test -f docker-compose.test.yml pull --include-deps --ignore-pull-failures || true
 
 test-start:
 	docker-compose --env-file .env.test -f docker-compose.test.yml up -d
