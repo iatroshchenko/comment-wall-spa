@@ -20,6 +20,8 @@ class RefererRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        dd($_SERVER["HTTP_SEC_FETCH_SITE"]);
+
         if (config('app.env') === 'production') {
             $referer = $request->headers->get('referer') ?: '';
 
