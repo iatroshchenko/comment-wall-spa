@@ -66,7 +66,7 @@ pipeline {
                 sh 'cat .env.test'
                 sh 'pwd'
                 sh "cp $ENV_FILE__DB .env.test.1"
-                sh 'echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test'
+                sh 'echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test.1'
             }
         }
         stage("Test environment - Pull images") {
