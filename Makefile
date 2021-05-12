@@ -70,10 +70,9 @@ deploy:
 	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'mkdir ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}'
 	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && mkdir env'
 	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose.prod.yml ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/docker-compose.prod.yml
-	scp -o StrictHostKeyChecking=no -P ${PORT} .env ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env
 	scp -o StrictHostKeyChecking=no -P ${PORT} .env.production ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.production
-	scp -o StrictHostKeyChecking=no -P ${PORT} .env.test ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.test
 	scp -o StrictHostKeyChecking=no -P ${PORT} .env.database ${USER}@${HOST}:${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER}/env/.env.database
+	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && echo IMAGE_TAG=${BUILD_NUMBER} >> ./env/.env.production'
 	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml pull'
 	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml up -d --build --remove-orphans'
 	ssh -o StrictHostKeyChecking=no ${USER}@${HOST} -p ${PORT} 'cd ${COMPOSE_PROJECT_NAME}_${BUILD_NUMBER} && docker-compose --env-file ./env/.env.production -f docker-compose.prod.yml run --rm app-php-fpm wait-for-it mysql:3306 -t 30'
@@ -126,6 +125,7 @@ test-pull:
 	docker-compose --env-file .env.test -f docker-compose.test.yml pull --include-deps
 
 test-start:
+	echo "${BUILD_NUMBER}" >> .env.test
 	docker-compose --env-file .env.test -f docker-compose.test.yml up -d
 
 test-migrations:
