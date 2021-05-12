@@ -125,7 +125,7 @@ test-pull:
 	docker-compose --env-file .env.test -f docker-compose.test.yml pull --include-deps
 
 test-start:
-	echo "${BUILD_NUMBER}" >> .env.test
+	echo "IMAGE_TAG=${BUILD_NUMBER}" >> .env.test
 	docker-compose --env-file .env.test -f docker-compose.test.yml up -d
 
 test-migrations:
