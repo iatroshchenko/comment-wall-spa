@@ -20,10 +20,10 @@ pipeline {
                 sh "cp $ENV_FILE__PROD .env.production"
                 sh "cp $ENV_FILE__DB .env.database"
 
-                sh "sudo chmod a+rwx .env"
-                sh "sudo chmod a+rwx .env.test"
-                sh "sudo chmod a+rwx .env.production"
-                sh "sudo chmod a+rwx .env.database"
+                sh "chmod a+rwx .env"
+                sh "chmod a+rwx .env.test"
+                sh "chmod a+rwx .env.production"
+                sh "chmod a+rwx .env.database"
             }
         }
         stage("npm install and compile assets") {
